@@ -650,6 +650,11 @@ FFTW3_LIB
 FFTW3_CFLAGS
 FFTW3_INCFLAGS
 LIB@&t@OBJS
+DOWNLOADER_PROG
+DOWNLOADER_PROG_CMD
+PARAMETER_EXPANSION_STRING_REPLACE_CAPABLE_SHELL
+ASH
+BASH
 PATCH
 UNZIP
 OTOOL64
@@ -772,6 +777,8 @@ enable_fast_install
 with_gnu_ld
 with_sysroot
 enable_libtool_lock
+with_parameter_expansion_string_replace_capable_shell
+with_downloader
 with_fftw3
 with_fftw3_prefix
 enable_pkgconfig
@@ -1420,6 +1427,11 @@ Optional Packages:
   --with-gnu-ld           assume the C compiler uses GNU ld @<:@default=no@:>@
   --with-sysroot=DIR Search for dependent libraries within DIR
                         (or the compiler's sysroot if not specified).
+  --with-parameter-expansion-string-replace-capable-shell 
+                          full path to shell that supports parameter expansion
+                          string replace (i. e. @S|@{var%string} and
+                          @S|@{var@%:@string}) @<:@default=check@:>@
+  --with-downloader       http downloading command @<:@default=check@:>@
   --with-fftw3            use fftw3 for fast fourier conversion (default=yes) 
   --with-fftw3-prefix=DIR alternate location for fftw3 (default=/usr)
 			      look for libraries in FFTW3-PREFIX/lib,
@@ -11962,12 +11974,279 @@ fi
 if test x"$PATCH" = x -a ! -f "aacenc.c" ; then
     as_fn_error $? "You need patch utility to prepare sources." "$LINENO" 5
 fi
-AC_PARAMETER_EXPANSION_STRING_REPLACE_CAPABLE_SHELL
+
+    
+@%:@ Check whether --with-parameter_expansion_string_replace_capable_shell was given.
+if test "${with_parameter_expansion_string_replace_capable_shell+set}" = set; then :
+  withval=$with_parameter_expansion_string_replace_capable_shell; 
+	ac_parameter_expansion_string_replace_capable_shell="$withval"
+    
+else
+  
+	ac_parameter_expansion_string_replace_capable_shell="none"
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for /bin/bash" >&5
+$as_echo_n "checking for /bin/bash... " >&6; }
+if ${ac_cv_file__bin_bash+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  test "$cross_compiling" = yes &&
+  as_fn_error $? "cannot check for file existence when cross compiling" "$LINENO" 5
+if test -r "/bin/bash"; then
+  ac_cv_file__bin_bash=yes
+else
+  ac_cv_file__bin_bash=no
+fi
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_file__bin_bash" >&5
+$as_echo "$ac_cv_file__bin_bash" >&6; }
+if test "x$ac_cv_file__bin_bash" = xyes; then :
+  
+	    BASH="/bin/bash"
+	
+else
+  
+	    # Extract the first word of "bash", so it can be a program name with args.
+set dummy bash; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_BASH+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $BASH in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_BASH="$BASH" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_BASH="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+BASH=$ac_cv_path_BASH
+if test -n "$BASH"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $BASH" >&5
+$as_echo "$BASH" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+	
+fi
+
+	if test "x$BASH" != "x" ; then
+	    ac_parameter_expansion_string_replace_capable_shell="$BASH"
+	else
+	    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for /bin/ash" >&5
+$as_echo_n "checking for /bin/ash... " >&6; }
+if ${ac_cv_file__bin_ash+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  test "$cross_compiling" = yes &&
+  as_fn_error $? "cannot check for file existence when cross compiling" "$LINENO" 5
+if test -r "/bin/ash"; then
+  ac_cv_file__bin_ash=yes
+else
+  ac_cv_file__bin_ash=no
+fi
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_file__bin_ash" >&5
+$as_echo "$ac_cv_file__bin_ash" >&6; }
+if test "x$ac_cv_file__bin_ash" = xyes; then :
+  
+		ASH="/bin/ash"
+	    
+else
+  
+		# Extract the first word of "ash", so it can be a program name with args.
+set dummy ash; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_ASH+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $ASH in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_ASH="$ASH" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_ASH="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+ASH=$ac_cv_path_ASH
+if test -n "$ASH"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ASH" >&5
+$as_echo "$ASH" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+	    
+fi
+
+	    if test "x$ASH" != "x" ; then
+		ac_parameter_expansion_string_replace_capable_shell="$ASH"
+	    fi
+	fi
+    
+fi
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for parameter expansion string replace capable shell" >&5
+$as_echo_n "checking for parameter expansion string replace capable shell... " >&6; }
+if ${ac_cv_parameter_expansion_string_replace_capable_shell+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  
+	ac_cv_parameter_expansion_string_replace_capable_shell="none"
+	if test x"$ac_parameter_expansion_string_replace_capable_shell" = xnone ; then
+	    if test x`/bin/sh -c "exec 2>/dev/null ; VAR=abc ; echo \\${VAR%bc}\\${VAR#ab}"` = xac ; then
+		ac_cv_parameter_expansion_string_replace_capable_shell="/bin/sh"
+	    fi
+	else
+	    ac_cv_parameter_expansion_string_replace_capable_shell="$ac_parameter_expansion_string_replace_capable_shell"
+	fi
+    
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_parameter_expansion_string_replace_capable_shell" >&5
+$as_echo "$ac_cv_parameter_expansion_string_replace_capable_shell" >&6; }
+    if test x"$ac_cv_parameter_expansion_string_replace_capable_shell" != "xnone" ; then
+	PARAMETER_EXPANSION_STRING_REPLACE_CAPABLE_SHELL="$ac_cv_parameter_expansion_string_replace_capable_shell"
+    else
+	PARAMETER_EXPANSION_STRING_REPLACE_CAPABLE_SHELL=""
+    fi
+    
+
 if test x"$PARAMETER_EXPANSION_STRING_REPLACE_CAPABLE_SHELL" = x -a ! "(" -f"26410-800.zip" -o -f "aacenc.c" ")" ; then
     NUMBER_SIGN="#"
     as_fn_error $? "You need parameter expansion string replace (i. e. \${var%string} and \${var${NUMBER_SIGN}string}) capable shell (bash, ash, better sh)." "$LINENO" 5
 fi
-AC_CHECK_DOWNLOADER_PROG
+
+    
+@%:@ Check whether --with-downloader was given.
+if test "${with_downloader+set}" = set; then :
+  withval=$with_downloader; 
+	ac_downloader_prog="$withval"
+    
+else
+  
+	for ac_prog in wget fetch curl
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_DOWNLOADER_PROG_CMD+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $DOWNLOADER_PROG_CMD in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_DOWNLOADER_PROG_CMD="$DOWNLOADER_PROG_CMD" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_DOWNLOADER_PROG_CMD="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+DOWNLOADER_PROG_CMD=$ac_cv_path_DOWNLOADER_PROG_CMD
+if test -n "$DOWNLOADER_PROG_CMD"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $DOWNLOADER_PROG_CMD" >&5
+$as_echo "$DOWNLOADER_PROG_CMD" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  test -n "$DOWNLOADER_PROG_CMD" && break
+done
+
+	ac_downloader_prog="none"
+    
+fi
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for web downloading command" >&5
+$as_echo_n "checking for web downloading command... " >&6; }
+if ${ac_cv_downloader_prog+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  
+	ac_cv_downloader_prog="$ac_downloader_prog"
+	ac_downloader_prog_args=""
+	if test x"$ac_cv_downloader_prog" = "xnone" ; then
+	    case "$DOWNLOADER_PROG_CMD" in
+		*wget*)
+		    # Does wget does not support -N?
+		    if wget --help 2>/dev/null | grep " -N" >/dev/null ; then
+			ac_downloader_prog_args=" -N"
+		    else
+			ac_downloader_prog_args=""
+		    fi
+		;;
+		*fetch*)
+		    ac_downloader_prog_args=" -m"
+		;;
+		*curl*)
+		    ac_downloader_prog_args=" -OR"
+		;;
+	    esac
+	    ac_cv_downloader_prog="$DOWNLOADER_PROG_CMD$ac_downloader_prog_args"
+	fi
+    
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_downloader_prog" >&5
+$as_echo "$ac_cv_downloader_prog" >&6; }
+    if test x"$ac_cv_downloader_prog" != xnone ; then
+	DOWNLOADER_PROG="$ac_cv_downloader_prog"
+    else
+	DOWNLOADER_PROG=""
+    fi
+    
+
 if test x"$DOWNLOADER_PROG" = x -a ! "(" -f "26410-800.zip" -o -f "aacenc.c" ")" ; then
     as_fn_error $? "You need downloader utility to download sources (wget, fetch or curl)." "$LINENO" 5
 fi
@@ -12461,16 +12740,64 @@ fi
 if test "x${USE_FFTW3}" = "xyes" ; then
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for fftw3 library at ${CONFIG_FFTW3_PREFIX} " >&5
 $as_echo_n "checking for fftw3 library at ${CONFIG_FFTW3_PREFIX} ... " >&6; }
-    LA_SEARCH_LIB( FFTW3_LIB_LOC, FFTW3_INC_LOC, libfftw3f.a libfftw3f.so, fftw3.h,
-		       ${CONFIG_FFTW3_PREFIX})
+    
+    
+  FFTW3_LIB_LOC=
+    for FILE in libfftw3f.a libfftw3f.so; do
+    for DIR in ${CONFIG_FFTW3_PREFIX} ${CONFIG_FFTW3_PREFIX}/lib64 ${CONFIG_FFTW3_PREFIX}/lib ; do
+            if test ".FFTW3_LIB_LOC"="." && test -f "$DIR/$FILE"; then
+        FFTW3_LIB_LOC=$DIR
+      fi
+    done
+  done
+
+    
+  FFTW3_INC_LOC=
+    for FILE in fftw3.h; do
+    for DIR in ${CONFIG_FFTW3_PREFIX} ${CONFIG_FFTW3_PREFIX}/include ; do
+            if test ".FFTW3_INC_LOC"="." && test -f "$DIR/$FILE"; then
+        FFTW3_INC_LOC=$DIR
+      fi
+    done
+  done
+
+  if test ".FFTW3_LIB_LOC" = "." || test ".FFTW3_INC_LOC" = "."; then
+    FFTW3_LIB_LOC=
+    FFTW3_INC_LOC=
+  fi
+
     if test "x${FFTW3_LIB_LOC}" == "x" ; then
         { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: not found" >&5
 $as_echo "$as_me: WARNING: not found" >&2;}
         CONFIG_FFTW3_PREFIX="/usr/local"
         { $as_echo "$as_me:${as_lineno-$LINENO}: checking for fftw3 library at ${CONFIG_FFTW3_PREFIX} " >&5
 $as_echo_n "checking for fftw3 library at ${CONFIG_FFTW3_PREFIX} ... " >&6; }
-        LA_SEARCH_LIB( FFTW3_LIB_LOC, FFTW3_INC_LOC, libfftw3f.a libfftw3f.so, fftw3.h,
-		       ${CONFIG_FFTW3_PREFIX})
+        
+    
+  FFTW3_LIB_LOC=
+    for FILE in libfftw3f.a libfftw3f.so; do
+    for DIR in ${CONFIG_FFTW3_PREFIX} ${CONFIG_FFTW3_PREFIX}/lib64 ${CONFIG_FFTW3_PREFIX}/lib ; do
+            if test ".FFTW3_LIB_LOC"="." && test -f "$DIR/$FILE"; then
+        FFTW3_LIB_LOC=$DIR
+      fi
+    done
+  done
+
+    
+  FFTW3_INC_LOC=
+    for FILE in fftw3.h; do
+    for DIR in ${CONFIG_FFTW3_PREFIX} ${CONFIG_FFTW3_PREFIX}/include ; do
+            if test ".FFTW3_INC_LOC"="." && test -f "$DIR/$FILE"; then
+        FFTW3_INC_LOC=$DIR
+      fi
+    done
+  done
+
+  if test ".FFTW3_LIB_LOC" = "." || test ".FFTW3_INC_LOC" = "."; then
+    FFTW3_LIB_LOC=
+    FFTW3_INC_LOC=
+  fi
+
     fi
 
     if test "x${FFTW3_LIB_LOC}" != "x" ; then
